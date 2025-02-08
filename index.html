@@ -35,6 +35,7 @@
                 } else {
                     for (const file of pdfFiles) {
                         const commitUrl = `https://api.github.com/repos/${username}/${repo}/commits?path=${folder}/${file.name}&per_page=1&page=1`;
+                        // 最新のコミットを取得
                         const commitResponse = await fetch(commitUrl);
                         const commits = await commitResponse.json();
                         
