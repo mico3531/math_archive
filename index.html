@@ -34,7 +34,7 @@
                     listContainer.innerHTML = "<p>公開中のPDFはありません。</p>";
                 } else {
                     for (const file of pdfFiles) {
-                        const commitUrl = `https://api.github.com/repos/${username}/${repo}/commits?path=${folder}/${file.name}&per_page=1`;
+                        const commitUrl = `https://api.github.com/repos/${username}/${repo}/commits?path=${folder}/${file.name}&per_page=1&page=1`;
                         const commitResponse = await fetch(commitUrl);
                         const commits = await commitResponse.json();
                         
