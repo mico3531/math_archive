@@ -14,16 +14,18 @@
     </style>
     <script>
         document.addEventListener("DOMContentLoaded", async function() {
-            const username = "mico3531";  // あなたのGitHubユーザー名
-            const repo = "math_archive";  // あなたのリポジトリ名
-            const branch = "main";  // デフォルトブランチ（変更する場合は修正）
-
-            const apiUrl = `https://api.github.com/repos/${username}/${repo}/contents/docs/`;
+            const username = "mico3531";  // GitHubユーザー名
+            const repo = "math_archive";  // リポジトリ名
+            const branch = "main";  // ブランチ名（デフォルトなら main）
+            const folder = "docs";  // PDFがあるフォルダ
             
+            const apiUrl = `https://api.github.com/repos/${username}/${repo}/contents/${folder}`;
+
             try {
                 const response = await fetch(apiUrl);
-                const files = await response.json();
+                if (!response.ok) throw new Error("GitHub APIのレスポンスエラー");
 
+                const files = await response.json();
                 const pdfList = files.filter(file => file.name.endsWith(".pdf"));
                 const listContainer = document.getElementById("pdf-list");
 
@@ -33,7 +35,7 @@
                     pdfList.forEach(file => {
                         const li = document.createElement("li");
                         const a = document.createElement("a");
-                        a.href = `https://${username}.github.io/${repo}/${file.name}`;
+                        a.href = `docs/${file.name}`;  // docs/ 以下のファイルパス
                         a.textContent = file.name;
                         li.appendChild(a);
                         listContainer.appendChild(li);
