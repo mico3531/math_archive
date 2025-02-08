@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF一覧</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        h1 { color: #333; }
+        ul { list-style-type: none; padding: 0; }
+        li { margin: 10px 0; }
+        a { text-decoration: none; color: #007bff; }
+        a:hover { text-decoration: underline; }
+    </style>
+    <script>
+        document.addEventListener("DOMContentLoaded", async function() {
+            const username = "mico3531";  // あなたのGitHubユーザー名
+            const repo = "math_archive";  // あなたのリポジトリ名
+            const branch = "main";  // デフォルトブランチ（変更する場合は修正）
+
+            const apiUrl = `https://api.github.com/repos/${username}/${repo}/contents/docs/`;
+            
+            try {
+                const response = await fetch(apiUrl);
+                const files = await response.json();
+
+                const pdfList = files.filter(file => file.name.endsWith(".pdf"));
+                const listContainer = document.getElementById("pdf-list");
+
+                if (pdfList.length === 0) {
+                    listContainer.innerHTML = "<p>公開中のPDFはありません。</p>";
+                } else {
+                    pdfList.forEach(file => {
+                        const li = document.createElement("li");
+                        const a = document.createElement("a");
+                        a.href = `https://${username}.github.io/${repo}/${file.name}`;
+                        a.textContent = file.name;
+                        li.appendChild(a);
+                        listContainer.appendChild(li);
+                    });
+                }
+            } catch (error) {
+                console.error("GitHub APIの取得エラー:", error);
+                document.getElementById("pdf-list").innerHTML = "<p>PDFの一覧を取得できませんでした。</p>";
+            }
+        });
+    </script>
+</head>
+<body>
+    <h1>公開PDF一覧</h1>
+    <ul id="pdf-list"></ul>
+</body>
+</html>
