@@ -13,12 +13,12 @@ document.addEventListener("DOMContentLoaded", async function () {
 
         const files = await response.json();
 
-        // APIレスポンスの確認（デバッグ用）
+        // 確認用のコンソールログ
         console.log("GitHub API レスポンス:", files);
 
         if (!Array.isArray(files)) throw new Error("レスポンスが想定と異なります");
 
-        const pdfFiles = files.filter(file => file.name.endsWith(".pdf"));
+        const pdfFiles = files.filter(file => file.name && file.name.endsWith(".pdf")); // 修正: `file.name` が `undefined` でないことを確認
 
         if (pdfFiles.length === 0) {
             listContainer.innerHTML = "<p>公開中のPDFはありません。</p>";
@@ -51,9 +51,21 @@ document.addEventListener("DOMContentLoaded", async function () {
             }
         }
 
-        // 修正: PDFリストを `updateList()` に正しく渡す
-        updateList(pdfList);
-        setupUI(pdfList);
+        console.log("取得したPDFリスト:", pdfList); // 修正: `pdfList` の中身を確認
+
+        // 修正: `pdfList` が `undefined` でないことを確認してから `updateList` を実行
+        if (pdfList.length > 0) {
+            updateList(pdfList);
+        } else {
+            console.warn("PDFリストが空です");
+        }
+
+        // 修正: `setupUI` が定義されているか確認してから実行
+        if (typeof setupUI === "function") {
+            setupUI(pdfList);
+        } else {
+            console.error("setupUI が未定義です。ui.js が正しく読み込まれているか確認してください。");
+        }
     } catch (error) {
         console.error("GitHub APIの取得エラー:", error);
         listContainer.innerHTML = "<p>PDFの一覧を取得できませんでした。</p>";
