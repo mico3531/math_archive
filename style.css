@@ -7,23 +7,25 @@ h1 {
     color: #333;
 }
 
-/* リストを従来のスタイルに戻す */
-.list-unstyled li {
-    padding: 8px 0;
+/* 修正: リスト形式のデザイン */
+#pdf-list {
+    margin-top: 10px;
+    padding-left: 0;
+}
+
+#pdf-list li {
+    padding: 10px;
     border-bottom: 1px solid #ddd;
+    list-style: none;
 }
 
-.list-unstyled li:last-child {
-    border-bottom: none;
-}
-
-a {
+#pdf-list li a {
+    font-weight: bold;
     text-decoration: none;
     color: #007bff;
-    font-weight: bold;
 }
 
-a:hover {
+#pdf-list li a:hover {
     text-decoration: underline;
 }
 
