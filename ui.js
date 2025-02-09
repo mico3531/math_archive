@@ -14,13 +14,12 @@ function updateList(pdfList) {
     listContainer.innerHTML = "";
     filteredList.forEach(pdf => {
         const li = document.createElement("li");
-        li.classList.add("list-group-item");
 
         const a = document.createElement("a");
         a.href = pdf.url;
         a.textContent = pdf.name;
 
-        const commitInfo = document.createElement("div");
+        const commitInfo = document.createElement("span");
         commitInfo.classList.add("commit-info");
         commitInfo.textContent = `📅 更新日: ${pdf.commitDate.toLocaleString()} | ✍ ${pdf.commitMessage}`;
 

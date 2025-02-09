@@ -7,17 +7,14 @@ h1 {
     color: #333;
 }
 
-.list-group-item {
-    background: white;
-    border: 1px solid #ddd;
-    border-radius: 10px;
-    padding: 15px;
-    margin-bottom: 10px;
-    transition: all 0.2s ease-in-out;
+/* リストを従来のスタイルに戻す */
+.list-unstyled li {
+    padding: 8px 0;
+    border-bottom: 1px solid #ddd;
 }
 
-.list-group-item:hover {
-    background: #f1f1f1;
+.list-unstyled li:last-child {
+    border-bottom: none;
 }
 
 a {
@@ -33,5 +30,5 @@ a:hover {
 .commit-info {
     font-size: 0.9em;
     color: #666;
-    margin-top: 5px;
+    margin-left: 10px;
 }
