@@ -1,8 +1,37 @@
-body { font-family: Arial, sans-serif; margin: 20px; }
-h1 { color: #333; }
-ul { list-style-type: none; padding: 0; }
-li { margin: 10px 0; }
-a { text-decoration: none; color: #007bff; }
-a:hover { text-decoration: underline; }
-.commit-info { font-size: 0.9em; color: #555; }
-input, select { margin-bottom: 10px; padding: 5px; }
+body {
+    font-family: "Arial", sans-serif;
+    background-color: #f8f9fa;
+}
+
+h1 {
+    color: #333;
+}
+
+.list-group-item {
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 15px;
+    margin-bottom: 10px;
+    transition: all 0.2s ease-in-out;
+}
+
+.list-group-item:hover {
+    background: #f1f1f1;
+}
+
+a {
+    text-decoration: none;
+    color: #007bff;
+    font-weight: bold;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+.commit-info {
+    font-size: 0.9em;
+    color: #666;
+    margin-top: 5px;
+}
