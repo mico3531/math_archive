@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     const apiUrl = `https://api.github.com/repos/${username}/${repo}/contents/${folder}`;
 
     const listContainer = document.getElementById("pdf-list");
-    const pdfList = []; // PDF情報を格納する配列
+    const pdfList = [];
 
     try {
         const response = await fetch(apiUrl);
@@ -13,12 +13,9 @@ document.addEventListener("DOMContentLoaded", async function () {
 
         const files = await response.json();
 
-        // 確認用のコンソールログ
-        console.log("GitHub API レスポンス:", files);
-
         if (!Array.isArray(files)) throw new Error("レスポンスが想定と異なります");
 
-        const pdfFiles = files.filter(file => file.name && file.name.endsWith(".pdf")); // 修正: `file.name` が `undefined` でないことを確認
+        const pdfFiles = files.filter(file => file.name && file.name.endsWith(".pdf"));
 
         if (pdfFiles.length === 0) {
             listContainer.innerHTML = "<p>公開中のPDFはありません。</p>";
@@ -35,7 +32,7 @@ document.addEventListener("DOMContentLoaded", async function () {
                     let commitDate = "";
 
                     if (Array.isArray(commits) && commits.length > 0) {
-                        commitMessage = commits[0].commit.message.split("\n")[0]; // 1行目のみ取得
+                        commitMessage = commits[0].commit.message.split("\n")[0];
                         commitDate = new Date(commits[0].commit.author.date);
                     }
 
@@ -51,21 +48,9 @@ document.addEventListener("DOMContentLoaded", async function () {
             }
         }
 
-        console.log("取得したPDFリスト:", pdfList); // 修正: `pdfList` の中身を確認
-
-        // 修正: `pdfList` が `undefined` でないことを確認してから `updateList` を実行
-        if (pdfList.length > 0) {
-            updateList(pdfList);
-        } else {
-            console.warn("PDFリストが空です");
-        }
-
-        // 修正: `setupUI` が定義されているか確認してから実行
-        if (typeof setupUI === "function") {
-            setupUI(pdfList);
-        } else {
-            console.error("setupUI が未定義です。ui.js が正しく読み込まれているか確認してください。");
-        }
+        // 初回リスト更新
+        updateList(pdfList);
+        setupUI(pdfList);
     } catch (error) {
         console.error("GitHub APIの取得エラー:", error);
         listContainer.innerHTML = "<p>PDFの一覧を取得できませんでした。</p>";
