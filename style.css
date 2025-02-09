@@ -7,30 +7,31 @@ h1 {
     color: #333;
 }
 
-/* 修正: リスト形式のデザイン */
-#pdf-list {
-    margin-top: 10px;
-    padding-left: 0;
+.list-group-item {
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 15px;
+    margin-bottom: 10px;
+    transition: all 0.2s ease-in-out;
 }
 
-#pdf-list li {
-    padding: 10px;
-    border-bottom: 1px solid #ddd;
-    list-style: none;
+.list-group-item:hover {
+    background: #f1f1f1;
 }
 
-#pdf-list li a {
-    font-weight: bold;
+a {
     text-decoration: none;
     color: #007bff;
+    font-weight: bold;
 }
 
-#pdf-list li a:hover {
+a:hover {
     text-decoration: underline;
 }
 
 .commit-info {
     font-size: 0.9em;
     color: #666;
-    margin-left: 10px;
+    margin-top: 5px;
 }
