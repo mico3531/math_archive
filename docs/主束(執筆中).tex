@@ -1,0 +1,202 @@
+\documentclass[a4paper,11pt]{ltjsarticle} %A4: 21.0 x 29.7cm
+\usepackage{amsmath,amsfonts,amssymb,amsthm,amscd}
+\usepackage{mathtools}
+\usepackage{bm}
+\usepackage{ascmac}
+\usepackage{fancybox}
+\usepackage{graphics}
+\usepackage{graphicx,xcolor}
+\usepackage{here} %画像の表示位置調整用
+\usepackage{type1cm}
+\usepackage{hyperref}
+\usepackage{enumerate}
+\usepackage{tcolorbox}
+\tcbuselibrary{breakable, skins, theorems}
+
+\newtcbtheorem{thm}{定理}{enhanced, %TikZの内部処理を導入する．ある程度複雑なものには必須．
+  attach boxed title to top left={xshift=5mm,yshift=-3mm}, 
+  boxed title style={colframe = green!55!black, colback = white},
+  coltitle = black,
+  colback = white,
+  colframe = green!55!black,
+  fonttitle = \bfseries,
+  breakable = true,
+  top = 4mm
+}{thmtag}
+
+\newtcbtheorem{defi}{定義}{enhanced, %TikZの内部処理を導入する．ある程度複雑なものには必須．
+  attach boxed title to top left={xshift=5mm,yshift=-3mm}, 
+  boxed title style={colframe = red!55!black, colback = white},
+  coltitle = black,
+  colback = white,
+  colframe = red!55!black,
+  fonttitle = \bfseries,
+  breakable = true,
+  top = 4mm
+}{defitag}
+
+\newtcbtheorem{prop}{命題}{enhanced, %TikZの内部処理を導入する．ある程度複雑なものには必須．
+  attach boxed title to top left={xshift=5mm,yshift=-3mm}, 
+  boxed title style={colframe = blue!55!black, colback = white},
+  coltitle = black,
+  colback = white,
+  colframe = blue!55!black,
+  fonttitle = \bfseries,
+  breakable = true,
+  top = 4mm
+}{proptag}
+
+\newtcbtheorem{lem}{補題}{enhanced, %TikZの内部処理を導入する．ある程度複雑なものには必須．
+  attach boxed title to top left={xshift=5mm,yshift=-3mm}, 
+  boxed title style={colframe = orange!55!black, colback = white},
+  coltitle = black,
+  colback = white,
+  colframe = orange!55!black,
+  fonttitle = \bfseries,
+  breakable = true,
+  top = 4mm
+}{lemtag}
+
+\title{主束の理論
+%\large{\\副題がある場合はここに記入}
+%副題が不要の場合は%\large{}というように%を前につける
+}
+\author{mico}
+\date{\today}
+
+\begin{document}
+  \maketitle
+
+  \section{はじめに}
+
+  このPDFでは多様体の上に定まるベクトル束の定義を, 
+  接ベクトル束を一般化する形で確認する. 
+  そしてベクトル束の上に定まる構造の具体例を調べ, 
+  主束の定義を確認する. 
+
+  \section{ベクトル束}
+
+  \subsection{接ベクトル束}
+
+  以下, 多様体や写像といえば, 特に断りのない限り \( C^{\infty} \) 級のものを
+  指すものとする. 
+
+  一般に \( m \) 次元多様体 \( M \) が与えられたとき, 
+  各点 \( x \in M \) にはそれに対応した 
+  \( m \) 次元接ベクトル空間 \( T _x M \) が定まる. 
+  ここで \( (U; x^1, \cdots, x^m) \subset M \) を \( M \) の
+  座標近傍とすれば, 集合 
+  \( \displaystyle TU := \bigsqcup_{x \in U} T _x M \) は
+  自然に \( U \times \mathbb{R}^m \) と同相となる. 
+
+  実際,
+  \begin{equation}
+    TU \ni \sum_{i=1}^m a^i 
+    \left( \frac{\partial}{\partial x^i} \right)_{(x^1, \cdots, x^m)} 
+    \cong (x^1, \cdots, x^m, a^1, \cdots, a^m) 
+    \in U \times \mathbb{R}^m
+    \label{eq:TU}
+  \end{equation}
+  という関係が成り立っている. 
+
+  \( TU \) の非交和をとる範囲をさらに広げて 
+  \( \displaystyle TM := \bigsqcup_{x \in M} T_x M \)
+  という集合を考え, 写像 \( \pi : TM \to M \) を 
+  \( v \in T_x M \) に対して, 
+  \( \pi (v) := x \) なる写像として定める. 
+
+  \( \{ (U_{\alpha}, \varphi_{\alpha}) \}_{\alpha \in A} \)
+  を \( M \) の座標近傍系とする. 各 \( \alpha \in A \) について, 
+  \( \pi^{-1} (U_{\alpha}) = TU_{\alpha} \) が成立する. 
+  また, 各 \( \alpha \in A \) に対して 
+  写像 \( \widetilde{\varphi} _\alpha :
+  \pi^{-1} (U_{\alpha}) \to U_{\alpha} \times \mathbb{R}^m \)
+  を式 \eqref{eq:TU} と同様に定める. 
+  
+  このとき \( TM \) は 
+  \( \{ (\pi^{-1} (U_{\alpha}), 
+  \widetilde{\varphi} _{\alpha}) \}_{\alpha \in A} \) 
+  を座標近傍系とする \( 2m \) 次元多様体となる. 
+
+  \begin{defi}{接ベクトル束}{defi_tanvbd}
+    以上のようにして定まる \( 2m \) 次元多様体 \( TM \) を, 
+    \( M \) の接ベクトル束(tangent vector bundle) という. 
+  \end{defi}
+
+  接ベクトル束を用いた接ベクトル場の定義もしておく. 
+
+  \begin{defi}{接ベクトル場}{defi_vectfield}
+    \( C^{\infty} \) 級写像 \( X: M \to TM \) で, 
+    \( \pi \circ X = \mathrm{id}_M \) となるようなものを, 
+    \( M \) 上の接ベクトル場(tangent vector field)という. 
+
+    \( M \) 上の接ベクトル場全体からなる集合を 
+    \( \Gamma (TM) \) と書く. 
+  \end{defi}
+
+  \subsection{ベクトル束}
+
+  前の小節で定めた接ベクトル束の概念をさらに一般化することを考える. 
+  接ベクトル束の持つ性質として, 以下のような物が挙げられる. 
+
+  \begin{enumerate}
+  \item 各 \( x \in M \) に対して, \( \pi^{-1} (x) = T_x M \) は
+    \( m \) 次元ベクトル空間である. 
+  \item \( \widetilde{\varphi}_{\alpha} : \pi^{-1} (U_{\alpha}) 
+    \to U_{\alpha} \times \mathbb{R}^m \) は
+    微分同相写像である. 
+  \item \( p_1: U_{\alpha} \times \mathbb{R}^m \to U_{\alpha}\)
+    を射影とすると, \( \pi |_{\pi^{-1} (U_{\alpha})} 
+    = p_1 \circ \widetilde{\varphi}_{\alpha} \) が成立する. すなわち, 図式
+    \[
+    \begin{CD}
+    \pi^{-1} (U_{\alpha}) @>{\widetilde{\varphi}_{\alpha}}>> U_{\alpha} \times \mathbb{R}^m \\
+    @V{\pi}VV    @VV{p_1}V \\
+    U_{\alpha}   @=  U_{\alpha}
+    \end{CD}
+    \]
+    は可換である.
+  \item \( p_2: U_{\alpha} \times \mathbb{R}^m \to \mathbb{R}^m \)
+    を射影とすると, 各 \( x \in U_{\alpha} \) について, 写像
+    \( p_2 \circ \widetilde{\varphi}_{\alpha} |_{T_x M} : 
+    T_x M \to \mathbb{R}^m \) は線型同型である. 
+  \end{enumerate}
+
+  これらの性質を抽出して, 一般のベクトル束の概念を構成する. 
+
+  \begin{defi}{ベクトル束}{defi_vbd}
+    \( E, M \) を多様体, \( \pi: E \to M \) を写像とする. 
+    以下の性質を満たすとき, \( \pi: E \to M \) は階数 \( r \) の
+    ベクトル束 (vector bundle) であるという. 
+    \begin{enumerate}
+    \item 各 \( x \in M \) に対して, \( E_x := \pi^{-1} (x) \) は
+      \( m \) 次元実ベクトル空間である. 
+    \item \( M \) の開被覆 \( \{U_{\alpha}\}_{\alpha \in A} \) と 
+      微分同相写像 \( \varphi_{\alpha} : \pi^{-1} (U_{\alpha}) 
+      \to U_{\alpha} \times \mathbb{R}^r \) であって, 
+      以下を満たすものが存在する. 
+    \begin{enumerate}
+    \item \( p_1: U_{\alpha} \times \mathbb{R}^r \to U_{\alpha}\)
+      を射影とすると, \( \pi |_{\pi^{-1} (U_{\alpha})} 
+      = p_1 \circ \varphi_{\alpha} \) が成立する. すなわち, 図式
+      \[
+      \begin{CD}
+      \pi^{-1} (U_{\alpha}) @>{\varphi_{\alpha}}>> U_{\alpha} \times \mathbb{R}^r \\
+      @V{\pi}VV    @VV{p_1}V \\
+      U_{\alpha}   @=  U_{\alpha}
+      \end{CD}
+      \]
+      は可換である.
+    \item \( p_2: U_{\alpha} \times \mathbb{R}^r \to \mathbb{R}^r \)
+      を射影とすると, 各 \( x \in U_{\alpha} \) について, 写像
+      \( p_2 \circ \varphi_{\alpha} |_{E_x} : 
+      E_x \to \mathbb{R}^r \) は線型同型である. 
+    \end{enumerate}
+    \end{enumerate}
+  \end{defi}
+
+  \begin{thebibliography}{9}
+    \item 今野宏, 微分幾何学, 東京大学出版会, 2013.
+  \end{thebibliography}
+
+\end{document}
